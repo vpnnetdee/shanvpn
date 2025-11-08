@@ -5,103 +5,425 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>นโยบายความเป็นส่วนตัว SHAN VPN</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-        .card-title {
-            font-size: 1rem;
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2A4B8C;
+            --secondary-color: #4A76C6;
+            --accent-color: #1DD1A1;
+            --light-color: #F5F9FF;
+            --dark-color: #1A2B4A;
+            --text-color: #333333;
         }
-        .title { color: black; }
-        .dtac { color: blue; }
-        .true { color: red; }
-        .ais { color: green; }
+        
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+        
+        /* นำทางแบบพิเศษ */
+        .custom-navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .custom-navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIyIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzUiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIyIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+');
+            opacity: 0.1;
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 400;
+            padding: 8px 15px !important;
+            margin: 0 5px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            color: white !important;
+            background-color: rgba(255, 255, 255, 0.2);
+            font-weight: 500;
+        }
+        
+        /* ส่วนเนื้อหา */
+        .content-section {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .content-section h3 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .content-section p {
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+        
+        .content-section ul {
+            padding-left: 20px;
+        }
+        
+        .content-section li {
+            margin-bottom: 10px;
+        }
+        
+        .content-section a {
+            color: var(--secondary-color);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .content-section a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        /* ส่วนหัว */
+        .header-section {
+            background: linear-gradient(135deg, var(--light-color) 0%, #ffffff 100%);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cGF0aCBkPSJNMTUwIDUwQzE2NS41IDY1LjUgMTc1IDg1IDE3NSAxMDVDMTc1IDEyNSAxNjUuNSAxNDQuNSAxNTAgMTYwQzEzNC41IDE3NS41IDExNSAxODUgOTUgMTg1Qzc1IDE4NSA1NS41IDE3NS41IDQwIDE2MEMyNC41IDE0NC41IDE1IDEyNSAxNSAxMDVDMTUgODUgMjQuNSA2NS41IDQwIDUwQzU1LjUgMzQuNSA3NSAyNSA5NSAyNUMxMTUgMjUgMTM0LjUgMzQuNSAxNTAgNTBaIiBmaWxsPSJub25lIiBzdHJva2U9IiM0QTc2QzYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==');
+            opacity: 0.5;
+        }
+        
+        .header-section h1 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .header-section p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* ส่วนท้าย */
+        .footer-section {
+            background: linear-gradient(135deg, var(--dark-color) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 40px 0;
+            margin-top: 50px;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo img {
+            height: 60px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .footer-section p {
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+        
+        .footer-section .copyright {
+            margin-top: 20px;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        
+        /* ปุ่มกลับขึ้นด้านบน */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-section {
+                padding: 20px;
+            }
+            
+            .header-section {
+                padding: 30px 20px;
+            }
+            
+            .custom-navbar .navbar-nav {
+                text-align: center;
+                margin-top: 15px;
+            }
+            
+            /* แก้ไขโลโก้ให้ห่างจากขอบมือถือ */
+            .navbar-brand {
+                margin-left: 15px; /* เพิ่มระยะห่างจากขอบซ้าย */
+            }
+        }
+        
+        /* สำหรับหน้าจอที่เล็กมาก (เช่น iPhone SE) */
+        @media (max-width: 375px) {
+            .navbar-brand {
+                margin-left: 10px; /* ระยะห่างที่น้อยลงสำหรับหน้าจอเล็กมาก */
+            }
+            
+            .navbar-brand img {
+                height: 35px; /* ลดขนาดโลโก้เล็กน้อย */
+            }
+            
+            .navbar-brand {
+                font-size: 1.3rem; /* ลดขนาดฟอนต์เล็กน้อย */
+            }
+        }
     </style>
-    
 </head>
 <body>
-    <div class="container">
-        <header class="my-4">
-        </header>
-
-        <div class="row">
-            
-                    <div class="card-body">
-                    	<h3><strong>นโยบายความเป็นส่วนตัว </strong></h3>                                             
-                        <p>เราให้ความสำคัญอย่างยิ่งต่อผู้ใช้งานแอป SHAN VPN ของเรา เราตระหนักถึงความเป็นส่วนตัวของข้อมูลส่วนบุคคลและจะเก็บข้อมูลที่ได้รับจากผู้ใช้งานให้ปลอดภัย เราต้องการแจ้งให้คุณทราบเกี่ยวกับนโยบายของแอปเกี่ยวกับการปกป้องข้อมูลส่วนบุคคลของผู้ใช้หรือผู้มาใช้บริการแอปดังต่อไปนี้</p>                       
-                                   
-            </div>
-           
-                    <div class="card-body">
-        <h3><strong>การจัดเก็บข้อมูล</strong></h3>             
-       <p>เราจะไม่นำข้อมูลส่วนบุคคลของผู้ใช้ไปใช้เพื่อจุดประสงค์อื่นใดนอกเหนือจากการให้บริการภายใต้ชื่อ SHAN VPN เราได้ออกแบบและจัดเก็บข้อมูลตามมาตรฐานความปลอดภัยให้มากที่สุด เพื่อปกป้องข้อมูลของผู้ใช้งาน</p>
-                   
-            </div>
-            
-                    <div class="card-body">
-                    	<h3><strong>วัตถุประสงค์การใช้ข้อมูล</strong></h3>                                           
-                        <p>เราได้นำข้อมูลมาเพื่อใช้พัฒนาระบบแอป SHAN VPN ให้มีประสิทธิภาพและให้บริการแก่ผู้ใช้งานได้อย่างครบวงจรเท่านั้น</p>
-                    </div>
-                
-                    <div class="card-body">
-                    	<h3><strong>การรวบรวมและการใช้ข้อมูล</strong></h3>
-                    <p>เพื่อประสบการณ์ที่ดีขึ้นขณะใช้แอป SHAN VPN ของเรา เราอาจขอให้คุณระบุข้อมูลส่วนบุคคลบางอย่างแก่เรา ข้อมูลที่เราขอจะถูกเก็บไว้ในอุปกรณ์ของคุณและจะไม่ถูกเก็บรวบรวมโดยเราในทางใดทางหนึ่งแอปนี้ใช้บริการของบุคคลที่สามซึ่งอาจรวบรวมข้อมูลที่ใช้เพื่อระบุตัวคุณลิงก์ไปยังนโยบายความเป็นส่วนตัวของผู้ให้บริการบุคคลที่สามที่ใช้โดยแอป</p>
-                    <li><a href="https://www.google.com/policies/privacy/" target="_blank" rel="noopener noreferrer">Google Play Services</a></li> 
-                    <li><a href="https://support.google.com/admob/answer/6128543?hl=en" target="_blank" rel="noopener noreferrer">AdMob</a> </li> 
-                    
-            </div>
-            
-                    <div class="card-body">
-                    	<h3><strong>ข้อมูลบันทึก</strong></h3>
-                    <p>ฉันต้องการแจ้งให้คุณทราบว่าเมื่อใดก็ตามที่คุณใช้แอป SHAN VPN ของเรา ในกรณีที่เกิดข้อผิดพลาดในแอป เราจะรวบรวมข้อมูล (ผ่านผลิตภัณฑ์ของบุคคลที่สาม) บนโทรศัพท์ของคุณที่เรียกว่า Log Data ข้อมูลบันทึกนี้อาจรวมถึงข้อมูล เช่น ที่อยู่ Internet Protocol (“IP”) ของอุปกรณ์ ชื่ออุปกรณ์ เวอร์ชันระบบปฏิบัติการ การกำหนดค่าของแอปเมื่อใช้บริการของเรา เวลาและวันที่คุณใช้บริการ และสถิติอื่นๆ</p>
-                    
-            </div>
-            
-                    <div class="card-body">
-                    	<h3><strong>คุกกี้</strong></h3>
-                    <p>คุกกี้คือไฟล์ที่มีข้อมูลจำนวนเล็กน้อยซึ่งมักใช้เป็นตัวระบุเฉพาะที่ไม่ระบุตัวตน คุกกี้จะถูกส่งไปยังเบราว์เซอร์ของคุณจากเว็บไซต์ที่คุณเยี่ยมชมและจัดเก็บไว้ในหน่วยความจำภายในของอุปกรณ์ของคุณ</p>
-                    <p>บริการนี้ไม่ได้ใช้ "คุกกี้" เหล่านี้โดยชัดเจน อย่างไรก็ตาม แอปอาจใช้โค้ดและไลบรารีของบุคคลที่สามซึ่งใช้ "คุกกี้" เพื่อรวบรวมข้อมูลและปรับปรุงบริการของตน คุณมีตัวเลือกที่จะยอมรับหรือปฏิเสธคุกกี้เหล่านี้ และทราบเมื่อคุกกี้ถูกส่งไปยังอุปกรณ์ของคุณ หากคุณเลือกที่จะปฏิเสธคุกกี้ของเรา คุณอาจไม่สามารถใช้บริการนี้บางส่วนได้</p>
-                    
-            </div>
-         
-                    <div class="card-body">
-                    	<h3><strong>ความปลอดภัย</strong></h3>
-                    <p>เราเห็นคุณค่าในความไว้วางใจและขอขอบคุณผู้ใช้งานแอป SHAN VPN ของเรา ในการให้ข้อมูลส่วนบุคคลแก่เรา ดังนั้นเราจึงพยายามใช้มาตรการที่เป็นที่ยอมรับในเชิงพาณิชย์ในการปกป้องข้อมูล แต่โปรดจำไว้ว่าไม่มีวิธีการส่งข้อมูลผ่านอินเทอร์เน็ตหรือวิธีการจัดเก็บข้อมูลทางอิเล็กทรอนิกส์ใดที่ปลอดภัยและเชื่อถือได้ 100% และเราไม่สามารถรับประกันความปลอดภัยได้อย่างเต็ม100%</p>                    
-                    
-            </div>
-            
-                    <div class="card-body">
-                    	<h3><strong>ลิงค์ไปยังเว็บไซต์อื่น ๆ</strong></h3>
-                    <p>แอป SHAN VPN ของเราอาจมีลิงก์ไปยังเว็บไซต์อื่น หากคุณคลิกลิงก์ของบุคคลที่สาม คุณจะถูกนำไปยังเว็บไซต์นั้น โปรดทราบว่าเราไม่ได้เป็นผู้ดำเนินการเว็บไซต์ภายนอกเหล่านี้ ดังนั้น เราขอแนะนำอย่างยิ่งให้คุณตรวจสอบนโยบายความเป็นส่วนตัวของเว็บไซต์เหล่านี้ เราไม่สามารถควบคุมและไม่รับผิดชอบต่อเนื้อหา นโยบายความเป็นส่วนตัว หรือแนวทางปฏิบัติของเว็บไซต์หรือบริการของบุคคลที่สามใดๆ</p>                       
-                    
-            </div>
-            
-                    <div class="card-body">
-                    	<h3><strong>ความเป็นส่วนตัวของเด็ก</strong></h3>
-                    <p>แอป SHAN VPM ของเราไม่มุ่งเป้าไปที่ผู้ที่มีอายุต่ำกว่า 13 ปี เราไม่รวบรวมข้อมูลส่วนตัวที่สามารถระบุตัวตนได้จากเด็กอายุต่ำกว่า 13 ปีโดยเจตนา ในกรณีที่ฉันพบว่าเด็กอายุต่ำกว่า 13 ปีได้ให้ข้อมูลส่วนบุคคลแก่เรา เราจะลบข้อมูลดังกล่าวออกจากเซิร์ฟเวอร์ของเราทันที หากคุณเป็นผู้ปกครองหรือผู้ดูแล และคุณทราบว่าบุตรหลานของคุณได้ให้ข้อมูลส่วนบุคคลแก่เรา โปรดติดต่อเราเพื่อให้เราสามารถดำเนินการที่จำเป็นได้</p>                    
-                    
-            </div>
-            
-                    <div class="card-body">
-                    	<h3><strong>การเปลี่ยนแปลงนโยบายความเป็นส่วนตัวนี้</strong></h3>
-                    <p>ทางผู้พัฒนาแอป SHAN VPN อาจอัปเดตนโยบายความเป็นส่วนตัวของเราเป็นระยะๆ ดังนั้น เราขอแนะนำให้คุณตรวจสอบหน้านี้เป็นระยะๆ เพื่อดูว่ามีการเปลี่ยนแปลงใดๆ หรือไม่ เราจะแจ้งให้คุณทราบถึงการเปลี่ยนแปลงใดๆ โดยการโพสต์นโยบายความเป็นส่วนตัวฉบับใหม่บนหน้านี้</p>   
-                    
-            </div>
-            
-                    <div class="card-body">
-                    	<h3><strong>ติดต่อเรา</strong></h3>
-                    <p>หากคุณมีคำถามหรือข้อเสนอแนะเกี่ยวกับนโยบายความเป็นส่วนตัวของเรา โปรดอย่าลังเลที่จะติดต่อเรา
-                        shanvpn@gmail.com</p>
-                    
+    <!-- บาร์นำทางแบบพิเศษ -->
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://raw.githubusercontent.com/hunmai/icon/refs/heads/main/icon_shan.png" alt="SHAN VPN Logo">
+                SHAN VPN
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">
+                    <i class="fas fa-bars" style="color: white;"></i>
+                </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">นโยบายความเป็นส่วนตัว</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">บริการ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ดาวน์โหลด</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ติดต่อเรา</a>
+                    </li>
+                </ul>
             </div>
         </div>
-        
-        <footer class="text-center SHAN-4">
-        	<img src="https://raw.githubusercontent.com/hunmai/icon/refs/heads/main/icon_shan.png" alt="SHAN VPN Logo" class="card-img-center" style="max-height: 50px; width: auto;">
-            <p>&copy; 2025-2026</p>
+    </nav>
+
+    <div class="container my-5">
+        <!-- ส่วนหัว -->
+        <div class="header-section">
+            <h1>นโยบายความเป็นส่วนตัว</h1>
+            <p>เราให้ความสำคัญอย่างยิ่งต่อผู้ใช้งานแอป SHAN VPN ของเรา เราตระหนักถึงความเป็นส่วนตัวของข้อมูลส่วนบุคคลและจะเก็บข้อมูลที่ได้รับจากผู้ใช้งานให้ปลอดภัย เราต้องการแจ้งให้คุณทราบเกี่ยวกับนโยบายของแอปเกี่ยวกับการปกป้องข้อมูลส่วนบุคคลของผู้ใช้หรือผู้มาใช้บริการแอปดังต่อไปนี้</p>
+        </div>
+
+        <!-- ส่วนเนื้อหา -->
+        <div class="content-section">
+            <h3>การจัดเก็บข้อมูล</h3>
+            <p>เราจะไม่นำข้อมูลส่วนบุคคลของผู้ใช้ไปใช้เพื่อจุดประสงค์อื่นใดนอกเหนือจากการให้บริการภายใต้ชื่อ SHAN VPN เราได้ออกแบบและจัดเก็บข้อมูลตามมาตรฐานความปลอดภัยให้มากที่สุด เพื่อปกป้องข้อมูลของผู้ใช้งาน</p>
+        </div>
+
+        <div class="content-section">
+            <h3>วัตถุประสงค์การใช้ข้อมูล</h3>
+            <p>เราได้นำข้อมูลมาเพื่อใช้พัฒนาระบบแอป SHAN VPN ให้มีประสิทธิภาพและให้บริการแก่ผู้ใช้งานได้อย่างครบวงจรเท่านั้น</p>
+        </div>
+
+        <div class="content-section">
+            <h3>การรวบรวมและการใช้ข้อมูล</h3>
+            <p>เพื่อประสบการณ์ที่ดีขึ้นขณะใช้แอป SHAN VPN ของเรา เราอาจขอให้คุณระบุข้อมูลส่วนบุคคลบางอย่างแก่เรา ข้อมูลที่เราขอจะถูกเก็บไว้ในอุปกรณ์ของคุณและจะไม่ถูกเก็บรวบรวมโดยเราในทางใดทางหนึ่งแอปนี้ใช้บริการของบุคคลที่สามซึ่งอาจรวบรวมข้อมูลที่ใช้เพื่อระบุตัวคุณลิงก์ไปยังนโยบายความเป็นส่วนตัวของผู้ให้บริการบุคคลที่สามที่ใช้โดยแอป</p>
+            <ul>
+                <li><a href="https://www.google.com/policies/privacy/" target="_blank" rel="noopener noreferrer">Google Play Services</a></li> 
+                <li><a href="https://support.google.com/admob/answer/6128543?hl=en" target="_blank" rel="noopener noreferrer">AdMob</a></li> 
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h3>ข้อมูลบันทึก</h3>
+            <p>ฉันต้องการแจ้งให้คุณทราบว่าเมื่อใดก็ตามที่คุณใช้แอป SHAN VPN ของเรา ในกรณีที่เกิดข้อผิดพลาดในแอป เราจะรวบรวมข้อมูล (ผ่านผลิตภัณฑ์ของบุคคลที่สาม) บนโทรศัพท์ของคุณที่เรียกว่า Log Data ข้อมูลบันทึกนี้อาจรวมถึงข้อมูล เช่น ที่อยู่ Internet Protocol ("IP") ของอุปกรณ์ ชื่ออุปกรณ์ เวอร์ชันระบบปฏิบัติการ การกำหนดค่าของแอปเมื่อใช้บริการของเรา เวลาและวันที่คุณใช้บริการ และสถิติอื่นๆ</p>
+        </div>
+
+        <div class="content-section">
+            <h3>คุกกี้</h3>
+            <p>คุกกี้คือไฟล์ที่มีข้อมูลจำนวนเล็กน้อยซึ่งมักใช้เป็นตัวระบุเฉพาะที่ไม่ระบุตัวตน คุกกี้จะถูกส่งไปยังเบราว์เซอร์ของคุณจากเว็บไซต์ที่คุณเยี่ยมชมและจัดเก็บไว้ในหน่วยความจำภายในของอุปกรณ์ของคุณ</p>
+            <p>บริการนี้ไม่ได้ใช้ "คุกกี้" เหล่านี้โดยชัดเจน อย่างไรก็ตาม แอปอาจใช้โค้ดและไลบรารีของบุคคลที่สามซึ่งใช้ "คุกกี้" เพื่อรวบรวมข้อมูลและปรับปรุงบริการของตน คุณมีตัวเลือกที่จะยอมรับหรือปฏิเสธคุกกี้เหล่านี้ และทราบเมื่อคุกกี้ถูกส่งไปยังอุปกรณ์ของคุณ หากคุณเลือกที่จะปฏิเสธคุกกี้ของเรา คุณอาจไม่สามารถใช้บริการนี้บางส่วนได้</p>
+        </div>
+
+        <div class="content-section">
+            <h3>ความปลอดภัย</h3>
+            <p>เราเห็นคุณค่าในความไว้วางใจและขอขอบคุณผู้ใช้งานแอป SHAN VPN ของเรา ในการให้ข้อมูลส่วนบุคคลแก่เรา ดังนั้นเราจึงพยายามใช้มาตรการที่เป็นที่ยอมรับในเชิงพาณิชย์ในการปกป้องข้อมูล แต่โปรดจำไว้ว่าไม่มีวิธีการส่งข้อมูลผ่านอินเทอร์เน็ตหรือวิธีการจัดเก็บข้อมูลทางอิเล็กทรอนิกส์ใดที่ปลอดภัยและเชื่อถือได้ 100% และเราไม่สามารถรับประกันความปลอดภัยได้อย่างเต็ม100%</p>
+        </div>
+
+        <div class="content-section">
+            <h3>ลิงค์ไปยังเว็บไซต์อื่น ๆ</h3>
+            <p>แอป SHAN VPN ของเราอาจมีลิงก์ไปยังเว็บไซต์อื่น หากคุณคลิกลิงก์ของบุคคลที่สาม คุณจะถูกนำไปยังเว็บไซต์นั้น โปรดทราบว่าเราไม่ได้เป็นผู้ดำเนินการเว็บไซต์ภายนอกเหล่านี้ ดังนั้น เราขอแนะนำอย่างยิ่งให้คุณตรวจสอบนโยบายความเป็นส่วนตัวของเว็บไซต์เหล่านี้ เราไม่สามารถควบคุมและไม่รับผิดชอบต่อเนื้อหา นโยบายความเป็นส่วนตัว หรือแนวทางปฏิบัติของเว็บไซต์หรือบริการของบุคคลที่สามใดๆ</p>
+        </div>
+
+        <div class="content-section">
+            <h3>ความเป็นส่วนตัวของเด็ก</h3>
+            <p>แอป SHAN VPM ของเราไม่มุ่งเป้าไปที่ผู้ที่มีอายุต่ำกว่า 13 ปี เราไม่รวบรวมข้อมูลส่วนตัวที่สามารถระบุตัวตนได้จากเด็กอายุต่ำกว่า 13 ปีโดยเจตนา ในกรณีที่ฉันพบว่าเด็กอายุต่ำกว่า 13 ปีได้ให้ข้อมูลส่วนบุคคลแก่เรา เราจะลบข้อมูลดังกล่าวออกจากเซิร์ฟเวอร์ของเราทันที หากคุณเป็นผู้ปกครองหรือผู้ดูแล และคุณทราบว่าบุตรหลานของคุณได้ให้ข้อมูลส่วนบุคคลแก่เรา โปรดติดต่อเราเพื่อให้เราสามารถดำเนินการที่จำเป็นได้</p>
+        </div>
+
+        <div class="content-section">
+            <h3>การเปลี่ยนแปลงนโยบายความเป็นส่วนตัวนี้</h3>
+            <p>ทางผู้พัฒนาแอป SHAN VPN อาจอัปเดตนโยบายความเป็นส่วนตัวของเราเป็นระยะๆ ดังนั้น เราขอแนะนำให้คุณตรวจสอบหน้านี้เป็นระยะๆ เพื่อดูว่ามีการเปลี่ยนแปลงใดๆ หรือไม่ เราจะแจ้งให้คุณทราบถึงการเปลี่ยนแปลงใดๆ โดยการโพสต์นโยบายความเป็นส่วนตัวฉบับใหม่บนหน้านี้</p>
+        </div>
+
+        <div class="content-section">
+            <h3>ติดต่อเรา</h3>
+            <p>หากคุณมีคำถามหรือข้อเสนอแนะเกี่ยวกับนโยบายความเป็นส่วนตัวของเรา โปรดอย่าลังเลที่จะติดต่อเรา</p>
+            <p><i class="fas fa-envelope mr-2"></i>shanvpn@gmail.com</p>
+        </div>
+    </div>
+
+    <!-- ส่วนท้าย -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="https://raw.githubusercontent.com/hunmai/icon/refs/heads/main/icon_shan.png" alt="SHAN VPN Logo">
+            </div>
             <p>นโยบายความเป็นส่วนตัว</p>
-        </footer>
+            <p class="copyright">&copy; 2025-2026 SHAN VPN. สงวนลิขสิทธิ์</p>
+        </div>
+    </footer>
+
+    <!-- ปุ่มกลับขึ้นด้านบน -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // ฟังก์ชันสำหรับปุ่มกลับขึ้นด้านบน
+        window.addEventListener('scroll', function() {
+            const backToTopButton = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+        
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // เพิ่มเอฟเฟกต์เมื่อโหลดหน้าเว็บ
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentSections = document.querySelectorAll('.content-section');
+            contentSections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
 </body>
 </html>
